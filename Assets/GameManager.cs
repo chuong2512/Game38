@@ -19,8 +19,8 @@ public class GameManager : Singleton<GameManager>
 
     public State currentState = State.Choose;
 
-    public TestTube currentTube = null;
-    public TestTube[] tubes;
+    public TesterTube currentTube = null;
+    public TesterTube[] tubes;
 
     public void SetState(State state)
     {
@@ -31,7 +31,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (up)
         {
-            GameDataManager.Ins.playerData.UpLevel();
+            DirGameDataManager.Ins.playerData.LevelUP();
         }
 
         SceneManager.LoadScene("Game");
@@ -53,7 +53,7 @@ public class GameManager : Singleton<GameManager>
                 Debug.Log($"{hit.collider.transform.gameObject.name}");
 
                 /////This is where I look for the gameObjects with the PlanetSelection components.
-                TestTube hitObject = hit.collider.transform.GetComponent<TestTube>();
+                TesterTube hitObject = hit.collider.transform.GetComponent<TesterTube>();
 
                 if (hitObject != null)
                 {
@@ -103,7 +103,7 @@ public class GameManager : Singleton<GameManager>
         return true;
     }
 
-    public void MoveColor(TestTube tube)
+    public void MoveColor(TesterTube tube)
     {
         currentTube?.MoveToTube(tube);
     }
@@ -115,9 +115,9 @@ public class GameManager : Singleton<GameManager>
         tubes[2].SetFullColor(Color.red);
         tubes[3].SetFullColor(Color.green);
         tubes[4].SetFullColor(Color.yellow);
-        tubes[5].SetEmptyColor();
-        tubes[6].SetEmptyColor();
-        tubes[7].SetEmptyColor();
+        tubes[5].SetEmpColor();
+        tubes[6].SetEmpColor();
+        tubes[7].SetEmpColor();
 
         for (int i = 0; i < 20000; i++)
         {
@@ -126,16 +126,16 @@ public class GameManager : Singleton<GameManager>
 
             if (fromRan != toRan)
             {
-                tubes[fromRan].MoveToTubeRandom(tubes[toRan]);
+                tubes[fromRan].MoveToTubeRan(tubes[toRan]);
             }
         }
     }
 
     public void Help()
     {
-        if (GameDataManager.Ins.playerData.intHelp >= 1)
+        if (DirGameDataManager.Ins.playerData.intHelp >= 1)
         {
-            GameDataManager.Ins.playerData.SubHelp(1);
+            DirGameDataManager.Ins.playerData.SubHelp(1);
             for (int i = 0; i < 50; i++)
             {
                 var fromRan = Random.Range(0, 8);

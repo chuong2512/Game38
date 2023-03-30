@@ -3,14 +3,14 @@ using UnityEngine;
 public class SkinSelector : MonoBehaviour
 {
     private PlayerData playerData; //todo delete
-    private GameDataManager gameData; 
+    private DirGameDataManager dirGameData; 
     public int currentSkin;
     public SkinItem[] skinItems;
 
     void Start()
     {
-        gameData = GameDataManager.Ins;
-        playerData = gameData.playerData;
+        dirGameData = DirGameDataManager.Ins;
+        playerData = dirGameData.playerData;
         
         currentSkin = playerData.currentSkin;
         
@@ -26,7 +26,7 @@ public class SkinSelector : MonoBehaviour
         skinItems[currentSkin].Choose();
     }
     
-    public void ChooseSkin(int index)
+    public void SkinChoosen(int index)
     {
         if (currentSkin == index)
         {
@@ -34,11 +34,11 @@ public class SkinSelector : MonoBehaviour
         }
         else if (playerData.listSkins[index] == false)
         {
-            if (!playerData.CheckCanUnlock())
+            if (!playerData.CheckCanUnlockChange())
             {
                 return;
             }
-            UnlockSkin(index);
+            unSkin(index);
         }
         
         skinItems[currentSkin].UnChoose();
@@ -48,7 +48,7 @@ public class SkinSelector : MonoBehaviour
         //todo add Playerdata
     }
 
-    public void UnlockSkin(int index)
+    public void unSkin(int index)
     {
         if (!playerData.listSkins[index])
         {

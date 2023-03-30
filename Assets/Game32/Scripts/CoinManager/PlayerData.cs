@@ -27,6 +27,16 @@ public class PlayerData : BaseData
 
         base.Init();
     }
+    
+    public void Unlock(int id)
+        {
+            if (!listSkins[id])
+            {
+                listSkins[id] = true;
+            }
+    
+            Save();
+        }
 
 
     public override void ResetData()
@@ -44,7 +54,7 @@ public class PlayerData : BaseData
         Save();
     }
 
-    public void UpLevel()
+    public void LevelUP()
     {
         intLevel++;
         Save();
@@ -54,16 +64,14 @@ public class PlayerData : BaseData
     {
         return this.listSkins[id];
     }
-
-    public void Unlock(int id)
-    {
-        if (!listSkins[id])
+    
+    public void ChooseSong(int i)
         {
-            listSkins[id] = true;
+            currentSkin = i;
+            Save();
         }
 
-        Save();
-    }
+    
 
     public void AddDiamond(int a)
     {
@@ -74,7 +82,7 @@ public class PlayerData : BaseData
         Save();
     }
 
-    public bool CheckCanUnlock()
+    public bool CheckCanUnlockChange()
     {
         return intHelp >= Constant.priceUnlockSkin;
     }
@@ -93,9 +101,5 @@ public class PlayerData : BaseData
         Save();
     }
 
-    public void ChooseSong(int i)
-    {
-        currentSkin = i;
-        Save();
-    }
+    
 }

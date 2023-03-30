@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class TestTube : MonoBehaviour
+public class TesterTube : MonoBehaviour
 {
     public List<Color> colors = new List<Color>();
-    public ColorTube[] mau;
+    public ColorTube[] colour;
 
     public GameObject ChooseObj;
 
@@ -13,61 +14,63 @@ public class TestTube : MonoBehaviour
     {
         ChooseObj.SetActive(true);
     }
+    public void Painting()
+    {
+        for (int i = 0; i < colour.Length; i++)
+        {
+            if (i < colors.Count)
+            {
+                colour[i].SetColor(colors[i]);
+            }
+            else
+            {
+                colour[i].SetColor(Color.white);
+            }
+        }
+    }
 
     public void UnChoose()
     {
         ChooseObj.SetActive(false);
     }
 
-    public void SetEmptyColor()
+    public void SetEmpColor()
     {
-        for (int i = 0; i < mau.Length; i++)
+        for (int i = 0; i < colour.Length; i++)
         {
-            mau[i].SetColor(Color.white);
+            colour[i].SetColor(Color.white);
         }
 
         colors = new List<Color>();
-    }
-
-    public void SetFullColor(Color color)
-    {
-        colors = new List<Color>();
-
-        for (int i = 0; i < mau.Length; i++)
-        {
-            mau[i].SetColor(color);
-            colors.Add(color);
-        }
     }
 
     public void AddColor(Color color)
     {
         colors.Add(color);
-        Paint();
+        Painting();
     }
-
-    public void RemoveColor()
+    public void SetFullColor(Color color)
     {
-        colors.RemoveAt(colors.Count - 1);
-        Paint();
-    }
+        colors = new List<Color>();
 
-    public void Paint()
-    {
-        for (int i = 0; i < mau.Length; i++)
+        for (int i = 0; i < colour.Length; i++)
         {
-            if (i < colors.Count)
-            {
-                mau[i].SetColor(colors[i]);
-            }
-            else
-            {
-                mau[i].SetColor(Color.white);
-            }
+            colour[i].SetColor(color);
+            colors.Add(color);
         }
     }
 
-    public void MoveToTube(TestTube moveTube, bool checkColor = false)
+    
+
+    public void RemoveColour()
+    {
+        colors.RemoveAt(colors.Count - 1);
+        Painting();
+    }
+
+    
+
+    public void MoveToTube(TesterTube moveTube, bool checkColor = false)
     {
         if (moveTube.colors.Count >= 4)
         {
@@ -89,7 +92,7 @@ public class TestTube : MonoBehaviour
                 }
             }
 
-            RemoveColor();
+            RemoveColour();
             moveTube.AddColor(last);
 
 
@@ -97,7 +100,15 @@ public class TestTube : MonoBehaviour
         }
     }
 
-    public void MoveToTubeRandom(TestTube moveTube)
+    
+
+    public bool CheckTrueTube()
+    {
+        return colors.Count == 0
+               || (colors.Count == 4 && colors[0] == colors[1] && colors[1] == colors[2] && colors[2] == colors[3]);
+    }
+    
+    public void MoveToTubeRan(TesterTube moveTube)
     {
         if (moveTube.colors.Count >= 4)
         {
@@ -108,14 +119,8 @@ public class TestTube : MonoBehaviour
         {
             var last = colors[^1];
 
-            RemoveColor();
+            RemoveColour();
             moveTube.AddColor(last);
         }
-    }
-
-    public bool CheckTrueTube()
-    {
-        return colors.Count == 0
-               || (colors.Count == 4 && colors[0] == colors[1] && colors[1] == colors[2] && colors[2] == colors[3]);
     }
 }

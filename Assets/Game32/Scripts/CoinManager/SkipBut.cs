@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkipButton : MonoBehaviour
+public class SkipBut : MonoBehaviour
 {
     public void OnPressDown()
     {

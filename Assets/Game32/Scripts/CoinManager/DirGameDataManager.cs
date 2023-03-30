@@ -2,7 +2,7 @@ using JumpFrog;
 using UnityEngine;
 
 [DefaultExecutionOrder(-100)]
-public class GameDataManager : PersistentSingleton<GameDataManager>
+public class DirGameDataManager : PersistentSingleton<DirGameDataManager>
 {
     /*----Scriptable data-----------------------------------------------------------------------------------------------*/
 
